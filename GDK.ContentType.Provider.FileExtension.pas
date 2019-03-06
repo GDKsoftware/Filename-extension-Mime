@@ -18,7 +18,7 @@ type
 implementation
 
 uses
-  REST.Types;
+  REST.Types, System.SysUtils;
 
 { TContentTypeProvider }
 
@@ -64,9 +64,12 @@ begin
 end;
 
 function TContentTypeProvider.GetContentType(const AFileExtension: string): string;
+var
+  LowerFileExtension: string;
 begin
-  if FContentTypes.ContainsKey(AFileExtension) then
-    Result := FContentTypes.GetValueOrDefault(AFileExtension)
+  LowerFileExtension := AFileExtension.ToLower;
+  if FContentTypes.ContainsKey(LowerFileExtension) then
+    Result := FContentTypes.GetValueOrDefault(LowerFileExtension)
   else
     Result := '';
 end;
